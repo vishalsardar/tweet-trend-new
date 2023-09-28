@@ -10,6 +10,19 @@ environment {
         steps {
             sh 'mvn clean deploy'
         }
-       }
+       
     }
+
+    stage('SonarQube analysis') {
+    environment{
+      scannerHome = tool 'namg-sonar-scanner'
+    }
+    
+    steps {
+    withSonarQubeEnv('namg-sonarqube-server') {
+        sh "${scannerHome}/bin/sonar-scanner"
+    }
+    }
+  } 
+}
 }
