@@ -10,6 +10,7 @@ environment {
     PATH = "/opt/apache-maven-3.9.4/bin:$PATH"
     }
     stages {
+
        stage("build"){
         steps {
             echo "------- build started --------"
@@ -25,6 +26,7 @@ environment {
             echo "---------unit test completed -------"
         }
     }
+
     stage('SonarQube analysis'){
     environment {
       scannerHome = tool 'namg-sonar-scanner' //sonar scanner name should be same as what we have defined in the tools
@@ -35,9 +37,10 @@ environment {
         }
       }
     }
-  stage("Quality Gate") {
-    steps {
-        script {
+    
+    stage("Quality Gate") {
+        steps {
+            script {
             timeout(time: 1, unit: 'HOURS') {
                 def qg = waitForQualityGate()
                 if (qg.status != 'OK') {
@@ -47,7 +50,7 @@ environment {
         }
     }
 }
-         stage("Jar Publish") {
+    stage("Jar Publish") {
         steps {
             script {
                     echo '<--------------- Jar Publish Started --------------->'
@@ -73,8 +76,8 @@ environment {
         }   
     }   
 
-        stage(" Docker Build ") {
-          steps {
+    stage(" Docker Build ") {
+        steps {
             script {
                echo '<--------------- Docker Build Started --------------->'
                app = docker.build(imageName+":"+version)
@@ -82,14 +85,15 @@ environment {
             }
           }
         }
-                stage (" Docker Publish "){
-            steps {
-                script {
-                   echo '<--------------- Docker Publish Started --------------->'  
-                    docker.withRegistry(registry, 'jfrogartifact-credentials'){
-                        app.push()
-                    }    
-                   echo '<--------------- Docker Publish Ended --------------->'  
+    
+    stage (" Docker Publish "){
+        steps {
+            script {
+                echo '<--------------- Docker Publish Started --------------->'  
+                docker.withRegistry(registry, 'jfrogartifact-credentials'){
+                app.push()
+                }    
+                echo '<--------------- Docker Publish Ended --------------->'  
                 }
             }
         }
