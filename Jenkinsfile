@@ -1,5 +1,5 @@
 def registry = 'https://namg04.jfrog.io'
-def imageName = 'namg04.jfrog.io/namg-docker-local/Namtrend'
+def imageName = 'namg04.jfrog.io/namg-docker-local/namtrend'
 def version   = '2.1.2'
 
 pipeline {
