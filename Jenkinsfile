@@ -1,6 +1,6 @@
 def registry = 'https://sanam01.jfrog.io'
 def imageName = 'sanam01.jfrog.io/namg-docker-local/namtrend'
-def version   = '2.1.2'
+def version   = '2.1.3'
 
 pipeline {
     agent {label 'maven'}
