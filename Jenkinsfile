@@ -1,4 +1,4 @@
-def registry = 'https://namg04.jfrog.io'
+def registry = 'https://sanam01.jfrog.io'
 def imageName = 'namg04.jfrog.io/namg-docker-local/namtrend'
 def version   = '2.1.2'
 
@@ -60,7 +60,7 @@ environment {
                           "files": [
                             {
                               "pattern": "jarstaging/(*)",
-                              "target": "namg-libs-release-local/{1}",
+                              "target": "sunny-libs-release-local/{1}",
                               "flat": "false",
                               "props" : "${properties}",
                               "exclusions": [ "*.sha1", "*.md5"]
